@@ -13,7 +13,7 @@ import Landing from "../pages/Landing";
 // Auth Pages
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import VerifyOTP from "../pages/auth/VerifyOTP";
+import VerifyOtp from "../pages/auth/VerifyOtp";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import ResetPassword from "../pages/auth/ResetPassword";
 
@@ -44,7 +44,7 @@ const AppRoutes = () => {
 
         <Route
           path="/verify-otp"
-          element={<VerifyOTP />}
+          element={<VerifyOtp />}
         />
 
         <Route
