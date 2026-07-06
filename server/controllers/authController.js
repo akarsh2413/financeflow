@@ -221,7 +221,9 @@ const forgotPassword = async (req, res) => {
       message: "OTP sent to your email",
     });
   } catch (error) {
-    console.log(error);
+  console.error("========== FORGOT PASSWORD ERROR ==========");
+  console.error("Message:", error.message);
+  console.error("Stack:", error.stack);
 
     res.status(500).json({
       success: false,
