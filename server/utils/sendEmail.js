@@ -12,6 +12,9 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail = async (to, subject, text) => {
   try {
+    console.log("EMAIL_USER:", process.env.EMAIL_USER);
+    console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
+
     const info = await transporter.sendMail({
       from: `"FinanceFlow" <${process.env.EMAIL_USER}>`,
       to,
