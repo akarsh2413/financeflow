@@ -2,7 +2,7 @@ const Transaction = require("../models/Transaction");
 const User = require("../models/User");
 const sendEmail = require("../utils/sendEmail");
 const budgetAlertTemplate = require("../templates/budgetAlertTemplate");
-
+const Budget = require("../models/Budget");
 // Add Transaction
 const addTransaction = async (req, res) => {
   try {

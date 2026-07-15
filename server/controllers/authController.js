@@ -211,15 +211,22 @@ const forgotPassword = async (req, res) => {
     await user.save();
 
     await sendEmail(
-      email,
-      "FinanceFlow Password Reset OTP",
-      `Your password reset OTP is ${otp}. It will expire in 10 minutes.`
-    );
+  email,
+  "FinanceFlow OTP Verification",
+  `Your OTP is ${otp}. It will expire in 10 minutes.`
+)
+.then(() => {
+  console.log("OTP email sent successfully");
+})
+.catch((err) => {
+  console.error("Email sending failed:", err);
+});
 
-    res.status(200).json({
-      success: true,
-      message: "OTP sent to your email",
-    });
+res.status(201).json({
+  success: true,
+  message: "OTP sent to your email",
+  user,
+});
   } catch (error) {
   console.error("========== FORGOT PASSWORD ERROR ==========");
   console.error("Message:", error.message);
