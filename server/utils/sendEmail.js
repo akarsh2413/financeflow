@@ -1,30 +1,31 @@
-const { MailtrapClient } = require("mailtrap");
+const SibApiV3Sdk = require("@getbrevo/brevo");
 
-const TOKEN = process.env.MAILTRAP_API_TOKEN;
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
-const client = new MailtrapClient({
-  token: TOKEN,
-});
-
-const sender = {
-  email: "hello@demomailtrap.co",
-  name: "FinanceFlow",
-};
+apiInstance.setApiKey(
+  SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY
+);
 
 const sendEmail = async (to, subject, text) => {
   try {
-    const response = await client.send({
-      from: sender,
+    const email = {
+      sender: {
+        name: "FinanceFlow",
+        email: "chbbhc218@gmail.com",
+      },
       to: [{ email: to }],
-      subject,
-      text,
-    });
+      subject: subject,
+      textContent: text,
+    };
+
+    const response = await apiInstance.sendTransacEmail(email);
 
     console.log("✅ Email sent successfully");
     return response;
-  } catch (error) {
-    console.error("❌ Mailtrap Error:", error);
-    throw error;
+  } catch (err) {
+    console.error("❌ Brevo Error:", err.response?.body || err);
+    throw err;
   }
 };
 
