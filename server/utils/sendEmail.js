@@ -1,43 +1,29 @@
-const axios = require("axios");
+const { MailtrapClient } = require("mailtrap");
+
+const TOKEN = process.env.MAILTRAP_API_TOKEN;
+
+const client = new MailtrapClient({
+  token: TOKEN,
+});
+
+const sender = {
+  email: "chbbhc218@gmail.com",
+  name: "FinanceFlow",
+};
 
 const sendEmail = async (to, subject, text) => {
-  try { 
-    console.log(
-  "BREVO_API_KEY exists:",
-  !!process.env.BREVO_API_KEY
-);
-    const response = await axios.post(
-      "https://api.brevo.com/v3/smtp/email",
-      {
-        sender: {
-          name: "FinanceFlow",
-          email: "chbbhc218@gmail.com", // Your verified sender email
-        },
-        to: [
-          {
-            email: to,
-          },
-        ],
-        subject: subject,
-        textContent: text,
-      },
-      {
-        headers: {
-          accept: "application/json",
-          "api-key": process.env.BREVO_API_KEY,
-          "content-type": "application/json",
-        },
-      }
-    );
+  try {
+    const response = await client.send({
+      from: sender,
+      to: [{ email: to }],
+      subject,
+      text,
+    });
 
     console.log("✅ Email sent successfully");
-    console.log(response.data);
-    return response.data;
+    return response;
   } catch (error) {
-    console.error(
-      "❌ Brevo Error:",
-      error.response?.data || error.message
-    );
+    console.error("❌ Mailtrap Error:", error);
     throw error;
   }
 };
