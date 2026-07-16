@@ -18,6 +18,12 @@ const sendEmail = async (to, subject, text) => {
       subject: subject,
       textContent: text,
     };
+    console.log(
+  "BREVO_API_KEY:",
+  process.env.BREVO_API_KEY
+    ? process.env.BREVO_API_KEY.substring(0, 15)
+    : "NOT FOUND"
+);
 
     const response = await apiInstance.sendTransacEmail(email);
 
