@@ -1,37 +1,41 @@
-const SibApiV3Sdk = require("@getbrevo/brevo");
-
-const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-
-apiInstance.setApiKey(
-  SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey,
-  process.env.BREVO_API_KEY
-);
+const axios = require("axios");
 
 const sendEmail = async (to, subject, text) => {
   try {
-    const email = {
-      sender: {
-        name: "FinanceFlow",
-        email: "chbbhc218@gmail.com",
+    console.log("BREVO KEY:", process.env.BREVO_API_KEY?.substring(0, 15));
+    const response = await axios.post(
+      "https://api.brevo.com/v3/smtp/email",
+      {
+        sender: {
+          name: "FinanceFlow",
+          email: "chbbhc218@gmail.com", // your verified sender
+        },
+        to: [
+          {
+            email: to,
+          },
+        ],
+        subject: subject,
+        textContent: text,
       },
-      to: [{ email: to }],
-      subject: subject,
-      textContent: text,
-    };
-    console.log(
-  "BREVO_API_KEY:",
-  process.env.BREVO_API_KEY
-    ? process.env.BREVO_API_KEY.substring(0, 15)
-    : "NOT FOUND"
-);
-
-    const response = await apiInstance.sendTransacEmail(email);
+      {
+        headers: {
+          accept: "application/json",
+          "api-key": process.env.BREVO_API_KEY,
+          "content-type": "application/json",
+        },
+      }
+    );
 
     console.log("✅ Email sent successfully");
-    return response;
-  } catch (err) {
-    console.error("❌ Brevo Error:", err.response?.body || err);
-    throw err;
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "❌ Brevo Error:",
+      error.response?.data || error.message
+    );
+    throw error;
   }
 };
 
