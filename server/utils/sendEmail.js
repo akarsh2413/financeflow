@@ -31,10 +31,12 @@ const sendEmail = async (to, subject, text) => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error(
-      "❌ Brevo Error:",
-      error.response?.data || error.message
-    );
+    console.log("============== BREVO ERROR ==============");
+    console.log("Status:", error.response?.status);
+    console.log("Data:", error.response?.data);
+    console.log("Message:", error.message);
+    console.log("=========================================");
+
     throw error;
   }
 };
