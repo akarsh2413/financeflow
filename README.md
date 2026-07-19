@@ -37,7 +37,7 @@ FinanceFlow is a full-stack personal finance management web application built us
 - MongoDB
 - Mongoose
 - JWT Authentication
-- Nodemailer
+- Resend
 
 ## 📁 Project Structure
 
