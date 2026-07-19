@@ -83,11 +83,13 @@ cd client
 npm install
 npm run dev
 ```
+### Demo Use
+Email:pifoyeg327@gicont.com
+Password:123456
 
 ## 👨‍💻 Author
 
 **Akarsh Pandey**
 
 MERN Stack Student
-
 
